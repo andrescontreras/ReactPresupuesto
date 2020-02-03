@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import Error from './Error';
 import shortid from 'shortid';
+import ProTypes from 'prop-types';
 
-const Formulario = ({ agregarGastoNuevo }) => {
+const Formulario = ({ agregarGastoNuevo, guardarCrearGasto }) => {
   const [nombre, guardarNombre] = useState('');
   const [cantidad, guardarCantidad] = useState(0);
   const [error, guardarError] = useState(false);
@@ -12,8 +13,9 @@ const Formulario = ({ agregarGastoNuevo }) => {
 
     if (cantidad < 1 || isNaN(cantidad) || nombre.trim() === '') {
       guardarError(true);
+      return;
     }
-    guardarError(true);
+    guardarError(false);
     const gasto = {
       nombre,
       cantidad,
@@ -21,6 +23,7 @@ const Formulario = ({ agregarGastoNuevo }) => {
     };
     console.log(gasto);
     agregarGastoNuevo(gasto);
+    guardarCrearGasto(true);
     guardarNombre('');
     guardarCantidad(0);
   };
@@ -59,4 +62,8 @@ const Formulario = ({ agregarGastoNuevo }) => {
   );
 };
 
+Formulario.prototype = {
+  agregarGastoNuevo: ProTypes.func.isRequired,
+  guardarCrearGasto: ProTypes.func.isRequired
+};
 export default Formulario;

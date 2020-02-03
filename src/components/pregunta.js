@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import Error from './Error';
+import ProTypes from 'prop-types';
 
 const Pregunta = ({
   guardarPresupuesto,
@@ -47,4 +48,9 @@ const Pregunta = ({
   );
 };
 
+Pregunta.prototype = {
+  guardarPresupuesto: ProTypes.func.isRequired,
+  guardarRestante: ProTypes.func.isRequired,
+  actualizarPregunta: ProTypes.func.isRequired
+};
 export default Pregunta;
